@@ -54,6 +54,9 @@ class Formulario{
                 case "moneda":
                     camposRespuesta.push(new CampoMoneda())
                     break;
+                case "lista":
+                    camposRespuesta.push(new CampoListaDesplegable(item.nombre_campo,item.titulo,item.nombre_campo_tabla,item.clase,item.placeholder,item.validacion,item.lista_valores))
+                    break;
                 default:
                     console.log("error de campo"+ item.tipo_campo)
 
@@ -127,7 +130,6 @@ class CampoTexto extends Campo{
     constructor(id,titulo,campoTabla,clase="",placeHolder="",validacion="0"){
         super(id,titulo,campoTabla,clase,placeHolder,validacion);
         this.generar();
-
     }
     validar(){
         return (this.validacionVacio || this.puntero.value.trim().length!=0);
@@ -189,7 +191,7 @@ class CampoMoneda extends Campo{
         return (this.validacionMayor == null ||  this.puntero.value>=this.validacionMenor );
     }
     generar(){
-        console.log("generando campo Texto");
+        console.log("generando campo moneda");
         this.puntero=document.createElement("input");
         this.puntero.type="text";
         this.puntero.placeholder=this.placeHolder;
@@ -201,6 +203,36 @@ class CampoMoneda extends Campo{
     obtenerValor(){
         return (this.puntero.value.replace(/\./gi,""));
     }
+
+}
+
+class CampoListaDesplegable extends Campo{
+    constructor(id,titulo,campoTabla,clase="",placeHolder="",validacion="0",listaValores=[]){
+        super(id,titulo,campoTabla,clase,placeHolder,validacion);
+        this.listaValores = listaValores
+        this.generar();
+    }
+    validar(){
+        return (this.validacionVacio || this.puntero.value.trim().length!=0);
+    }
+    generar(){
+        let temp = "";
+        console.log("generando campo lista desplegable");
+        this.puntero=document.createElement("select");
+        this.puntero.className = this.clase;
+        this.puntero.id = this.id;
+        this.puntero.name = this.id;
+        this.listaValores.forEach((item, i) => {
+            for (var indice in item) {
+                temp+="<option value='"+indice+"'>"+item[indice]+"</option>";
+            }
+        });
+        this.puntero.innerHTML = temp;
+    }
+    
+}
+
+class CampoBuscador extends Campo{
 
 }
 
@@ -221,11 +253,6 @@ class Boton {
 
     }
 }
-
-
-
-
-
 
 
 //
