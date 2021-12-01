@@ -25,7 +25,9 @@ function obtener_formulario($id){
                 "clase"=>"",
                 "validacion"=>"1",
                 "menor_rango"=>"",
-                "mayor_rango"=>""
+                "mayor_rango"=>"",
+                "tipo_lista_valores" =>"",
+                "lista_valores"=>""
             ],
             [
                 "id"=>"2",
@@ -38,7 +40,26 @@ function obtener_formulario($id){
                 "clase"=>"",
                 "validacion"=>"0",
                 "menor_rango"=>"",
-                "mayor_rango"=>"25"
+                "mayor_rango"=>"25",
+                "tipo_lista_valores" =>"",//FIJO O DINAMICO
+                "lista_valores"=>"",
+
+            ],
+            [
+                "id"=>"3",
+                "id_formulario"=>"1",
+                "tipo_campo"=>"lista",
+                "nombre_campo"=>"campo3",
+                "nombre_campo_tabla"=>"campo_tabla3",
+                "placeholder"=>"Ingrese campo3",
+                "titulo"=>"prueba campo2",
+                "clase"=>"",
+                "validacion"=>"1",
+                "menor_rango"=>"",
+                "mayor_rango"=>"",
+                "tipo_lista_valores" =>"",//FIJO O DINAMICO
+                "lista_valores"=>[["1" =>"Promer valor","2"=>"Segundo Valor","3"=>"Tercer Valor"]],
+
             ]
         ]
     ];
