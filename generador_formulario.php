@@ -11,14 +11,6 @@
     <script type="text/javascript">
         var form = new Formulario(document.body);
         form.obtenerFormulario();
-        
-
-
-
-
-
-
-
 
 
 
