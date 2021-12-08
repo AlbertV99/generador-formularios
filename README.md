@@ -1,7 +1,7 @@
 # Generador de Formularios
 Proyecto donde se podrá generar un formulario y el código necesario para poder guardar los datos enviados por este
 
-Formato de envio de datos  JSON
+## Formato de envio de datos  JSON
 
 {
     "id":"1",
@@ -58,3 +58,19 @@ Formato de envio de datos  JSON
         }
     ]
 }
+
+## Clases utilizables
+* Formulario
+    En este se define donde se instanciaran los campos y parametros generales para el funcionamiento del formulario.
+
+* Campo
+    Clase diferida, plantilla basica para la creacion de los demas campos.
+
+* CampoTexto
+    Clase encargada de crear un input de tipo Text y un label que corresponde a el titulo para el campo. Con la posibilidad de validar si puede estar o no vacio a la hora de enviar el formulario.
+
+* CampoNumerico
+    Clase encargada de crear un input de tipo number y un label que corresponde a el titulo para el campo. Con la posibilidad de validar si puede estar vacio , o el rango de valores permitido en ese campo.
+* CampoListaDesplegable
+    Clase encargada de crear un campo tipo select con sus respectivas opciones pasadas por parametro asi como el titulo correspondiente al campo.
+    

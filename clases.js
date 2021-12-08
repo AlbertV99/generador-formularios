@@ -34,6 +34,8 @@ class Formulario{
             temp.innerHTML = item.titulo ;
             this.zonaFormulario.appendChild(temp)
             this.zonaFormulario.appendChild(item.puntero);
+            if(item.constructor.name=='CampoBuscador')
+                this.zonaFormulario.appendChild(item.datalist)
             this.zonaFormulario.appendChild(document.createElement("br"))
         });
         this.botonGuardar.generar();
@@ -51,12 +53,17 @@ class Formulario{
                 case "numerico":
                     camposRespuesta.push(new CampoNumerico(item.nombre_campo,item.titulo,item.nombre_campo_tabla,item.clase,item.placeholder,item.validacion,item.menor_rango,item.mayor_rango))
                     break;
-                case "moneda":
-                    camposRespuesta.push(new CampoMoneda())
+                case "fecha":
+                    camposRespuesta.push(new CampoFecha(item.nombre_campo,item.titulo,item.nombre_campo_tabla,item.clase,item.placeholder,item.validacion,item.menor_rango,item.mayor_rango))
                     break;
+                // case "moneda":
+                //     camposRespuesta.push(new CampoMoneda())
+                //     break;
                 case "lista":
                     camposRespuesta.push(new CampoListaDesplegable(item.nombre_campo,item.titulo,item.nombre_campo_tabla,item.clase,item.placeholder,item.validacion,item.lista_valores))
                     break;
+                case "buscador":
+                    camposRespuesta.push(new CampoBuscador(item.nombre_campo,item.titulo,item.nombre_campo_tabla,item.clase,item.placeholder,item.validacion,item.lista_valores))
                 default:
                     console.log("error de campo"+ item.tipo_campo)
 
@@ -149,9 +156,10 @@ class CampoTexto extends Campo{
 class CampoNumerico extends Campo{
     constructor(id,titulo,campoTabla,clase="",placeHolder="",validacion="0",validacionMenor,validacionMayor){
         super(id,titulo,campoTabla,clase,placeHolder,validacion);
-        this.generar();
         this.validacionMenor=(validacionMenor)?validacionMenor:null;
         this.validacionMayor=(validacionMayor)?validacionMayor:null;
+        this.generar();
+
     }
     validar(){
         return ((this.validacionVacio || this.puntero.value.trim().length!=0) && (this.validarMaximo() && this.validarMinimo()));
@@ -165,13 +173,38 @@ class CampoNumerico extends Campo{
         return (this.validacionMenor == null ||  parseInt(this.puntero.value)>=parseInt(this.validacionMenor) );
     }
     generar(){
-        console.log("generando campo Texto");
+        console.log("generando campo Numerico");
         this.puntero=document.createElement("input");
         this.puntero.type="number";
         this.puntero.placeholder=this.placeHolder;
         this.puntero.className = this.clase;
+        if(this.validacionMayor!= null) {this.puntero.max = this.validacionMayor}
+        if(this.validacionMenor!= null) {this.puntero.min = this.validacionMenor}
         this.puntero.id = this.id;
         this.puntero.name = this.id;
+    }
+}
+
+class CampoFecha extends Campo{
+    constructor(id,titulo,campoTabla,clase="",placeHolder="",validacion="0",validacionMenor,validacionMayor){
+        super(id,titulo,campoTabla,clase,placeHolder,validacion);
+        this.validacionMenor=(validacionMenor)?validacionMenor:null;
+        this.validacionMayor=(validacionMayor)?validacionMayor:null;
+        this.generar();
+    }
+    validar(){
+        return (this.validacionVacio || this.puntero.value.trim().length!=0);
+    }
+    generar(){
+        console.log("generando campo Fecha");
+        this.puntero=document.createElement("input");
+        this.puntero.type="date";
+        if(this.validacionMayor!= null) {this.puntero.max = this.validacionMayor}
+        if(this.validacionMenor!= null) {this.puntero.min = this.validacionMenor}
+        this.puntero.className = this.clase;
+        this.puntero.id = this.id;
+        this.puntero.name = this.id;
+
     }
 }
 
@@ -229,11 +262,39 @@ class CampoListaDesplegable extends Campo{
         });
         this.puntero.innerHTML = temp;
     }
-    
+
 }
 
 class CampoBuscador extends Campo{
-
+    constructor(id,titulo,campoTabla,clase="",placeHolder="",validacion="0",listaValores=[]){
+        super(id,titulo,campoTabla,clase,placeHolder,validacion);
+        this.listaValores = listaValores
+        this.generar();
+        this.datalist;
+    }
+    validar(){
+        return (this.validacionVacio || this.puntero.value.trim().length!=0);
+    }
+    generar(){
+        console.log("generando campo Buscador");
+        let temp = "";
+        this.datalist= document.createElement('datalist');
+        this.datalist.id = 'lista-'+this.id;
+        this.puntero=document.createElement("input");
+        this.puntero.type="text";
+        this.puntero.placeholder=this.placeHolder;
+        this.puntero.setAttribute('list', 'lista-'+this.id);
+        this.puntero.className = this.clase;
+        this.puntero.id = this.id;
+        this.puntero.name = this.id;
+        this.listaValores.forEach((item, i) => {
+            for (var indice in item) {
+                temp+="<option value='"+indice+"'>"+item[indice]+"</option>";
+            }
+        });
+        this.datalist.innerHTML = temp;
+        console.log("test")
+    }
 }
 
 class Boton {
