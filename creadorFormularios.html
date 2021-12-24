@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title></title>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="JS/js/bootstrap.bundle.js" charset="utf-8"></script>
+        <script src="JS/js/bootstrap.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="CSS/css/bootstrap.css">
+
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-dark bg-dark">
+                <h3 class="navbar-brand" >Creador de Formularios</h3>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2" id="herramientas">
+                    <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Campo Texto</button>
+                        <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Campo Numerico</button>
+                        <button type="button" class="btn btn-secondary" onclick="abrir('fecha')">Campo Fecha</button>
+                        <button type="button" class="btn btn-secondary" onclick="abrir('lista')">Campo Lista</button>
+                        <button type="button" class="btn btn-secondary" onclick="abrir('buscador')">Campo Buscador</button>
+                    </div>
+                </div>
+                <div class="col" id="area-trabajo">
+
+                </div>
+            </div>
+        </div>
+        <!-- MODAL PARA CREAR CAMPOS DE TEXTO -->
+        <div class="modal fade modal-texto" id="modalTexto" tabindex="-1" role="dialog" aria-labelledby="modalTexto" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Crear Campo Texto</h5>
+                        <button type="button" class="close" onclick="abrir('texto')" aria-label="Close" onclick="abrir('texto')">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-campo-texto" class="col-form-label">Titulo de Campo:</label>
+                                <input type="text" class="form-control" id="titulo-campo-texto">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-texto" class="col-form-label">Nombre de Campo:</label>
+                                <input type="text" class="form-control" id="nombre-campo-texto">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-tabla-texto" class="col-form-label">Nombre de Campo en BD:</label>
+                                <input type="text" class="form-control" id="nombre-campo-tabla-texto">
+                            </div>
+                            <div class="form-group">
+                                <label for="placeholder-texto" class="col-form-label">Placeholder:</label>
+                                <input type="text" class="form-control" id="placeholder-texto">
+                            </div>
+                            <div class="form-group">
+                                <label for="clase-css-texto" class="col-form-label">Clase CSS:</label>
+                                <input type="text" class="form-control" id="clase-css-texto">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="validar-texto">
+                                <label class="custom-control-label" for="customCheck1">No permitir vacio</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarCampo('texto')">Guardar</button>
+                    </div>
+
+                </div>
+          </div>
+        </div>
+        <!-- MODAL PARA CREAR CAMPOS DE TIPO NUMERICO -->
+        <div class="modal fade " id="modalNumerico" tabindex="-1" role="dialog" aria-labelledby="modalNumerico" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Crear Campo Numerico</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrir('numberico')">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-campo-numerico" class="col-form-label">Titulo de Campo:</label>
+                                <input type="text" class="form-control" id="titulo-campo-numerico">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-numerico" class="col-form-label">Nombre de Campo:</label>
+                                <input type="text" class="form-control" id="nombre-campo-numerico">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-tabla-numerico" class="col-form-label">Nombre de Campo en BD:</label>
+                                <input type="text" class="form-control" id="nombre-campo-tabla-numerico">
+                            </div>
+                            <div class="form-group">
+                                <label for="placeholder-numerico" class="col-form-label">Placeholder:</label>
+                                <input type="text" class="form-control" id="placeholder-numerico">
+                            </div>
+                            <div class="form-group">
+                                <label for="clase-css-numerico" class="col-form-label">Clase CSS:</label>
+                                <input type="text" class="form-control" id="clase-css-numerico">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="validar-numerico">
+                                <label class="custom-control-label" for="validar-numerico">No permitir vacio</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="menor-rango-numerico" class="col-form-label">Menor valor:</label>
+                                <input type="text" class="form-control" id="menor-rango-numerico">
+                            </div>
+                            <div class="form-group">
+                                <label for="mayor-rango-numerico" class="col-form-label">Mayor Valor</label>
+                                <input type="text" class="form-control" id="mayor-rango-numerico">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarCampo('numerico')">Guardar</button>
+                    </div>
+
+                </div>
+          </div>
+        </div>
+        <!-- MODAL PARA CREAR CAMPOS DE TIPO FECHA -->
+        <div class="modal fade " id="modalFecha" tabindex="-1" role="dialog" aria-labelledby="modalFecha" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Crear Campo Fecha</h5>
+                        <button type="button" class="close" onclick="abrir('fecha')" aria-label="Close" onclick="close()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-campo-calendario" class="col-form-label">Titulo de Campo:</label>
+                                <input type="text" class="form-control" id="titulo-campo-calendario">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-calendario" class="col-form-label">Nombre de Campo:</label>
+                                <input type="text" class="form-control" id="nombre-campo-calendario">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-tabla-calendario" class="col-form-label">Nombre de Campo en BD:</label>
+                                <input type="text" class="form-control" id="nombre-campo-tabla-calendario">
+                            </div>
+                            <div class="form-group">
+                                <label for="placeholder-calendario" class="col-form-label">Placeholder:</label>
+                                <input type="text" class="form-control" id="placeholder-calendario">
+                            </div>
+                            <div class="form-group">
+                                <label for="clase-css-calendario" class="col-form-label">Clase CSS:</label>
+                                <input type="text" class="form-control" id="clase-css-calendario">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="validar-calendario">
+                                <label class="custom-control-label" for="validar-calendario">No permitir vacio</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="menor-rango-calendario" class="col-form-label">Menor valor:</label>
+                                <input type="text" class="form-control" id="menor-rango-calendario">
+                            </div>
+                            <div class="form-group">
+                                <label for="mayor-rango-calendario" class="col-form-label">Mayor Valor</label>
+                                <input type="text" class="form-control" id="mayor-rango-calendario">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('fecha')">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarCampo('fecha')">Guardar</button>
+                    </div>
+
+                </div>
+          </div>
+        </div>
+        <!-- MODAL PARA CREAR CAMPOS DE TIPO LISTA -->
+        <div class="modal fade " id="modalLista" tabindex="-1" role="dialog" aria-labelledby="modalLista" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Crear Campo Lista</h5>
+                        <button type="button" class="close" onclick="abrir('lista')" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-campo-lista" class="col-form-label">Titulo de Campo:</label>
+                                <input type="text" class="form-control" id="titulo-campo-lista">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-lista" class="col-form-label">Nombre de Campo:</label>
+                                <input type="text" class="form-control" id="nombre-campo-lista">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-tabla-lista" class="col-form-label">Nombre de Campo en BD:</label>
+                                <input type="text" class="form-control" id="nombre-campo-tabla-lista">
+                            </div>
+                            <div class="form-group">
+                                <label for="placeholder-lista" class="col-form-label">Placeholder:</label>
+                                <input type="text" class="form-control" id="placeholder-lista">
+                            </div>
+                            <div class="form-group">
+                                <label for="clase-css-lista" class="col-form-label">Clase CSS:</label>
+                                <input type="text" class="form-control" id="clase-css-lista">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="validar-lista">
+                                <label class="custom-control-label" for="validar-lista">No permitir vacio</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="tipo-lista">
+                                <label class="custom-control-label" for="tipo-lista">Dinamico</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="lista-valores-lista" class="col-form-label">Lista de valores :</label>
+                                <input type="text" class="form-control" id="lista-valores-lista">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('lista')">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarCampo('lista')">Guardar</button>
+                    </div>
+
+                </div>
+          </div>
+        </div>
+        <!-- MODAL PARA CREAR CAMPOS DE TIPO BUSCADOR -->
+        <div class="modal fade " id="modalBuscador" tabindex="-1" role="dialog" aria-labelledby="modalBuscador" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Crear Campo Buscador</h5>
+                        <button type="button" class="close" onclick="abrir('buscador')" aria-label="Close" onclick="close()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-campo-buscador" class="col-form-label">Titulo de Campo:</label>
+                                <input type="text" class="form-control" id="titulo-campo-buscador">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-buscador" class="col-form-label">Nombre de Campo:</label>
+                                <input type="text" class="form-control" id="nombre-campo-buscador">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-campo-tabla-buscador" class="col-form-label">Nombre de Campo en BD:</label>
+                                <input type="text" class="form-control" id="nombre-campo-tabla-buscador">
+                            </div>
+                            <div class="form-group">
+                                <label for="placeholder-buscador" class="col-form-label">Placeholder:</label>
+                                <input type="text" class="form-control" id="placeholder-buscador">
+                            </div>
+                            <div class="form-group">
+                                <label for="clase-css-buscador" class="col-form-label">Clase CSS:</label>
+                                <input type="text" class="form-control" id="clase-css-buscador">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="validar-buscador">
+                                <label class="custom-control-label" for="validar-buscador">No permitir vacio</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-control-input" id="tipo-buscador">
+                                <label class="custom-control-label" for="tipo-buscador">Dinamico</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="buscador-valores-buscador" class="col-form-label">Lista de valores :</label>
+                                <input type="text" class="form-control" id="buscador-valores-buscador">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('buscador')">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarCampo('lista')">Guardar</button>
+                    </div>
+
+                </div>
+          </div>
+        </div>
+
+    </body>
+
+    <script src="clases.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        const LIST_MODAL = {
+            "texto":{
+                "titulo":"modalTexto",
+                "campos":{
+                    "titulo":'titulo-campo-texto',
+                    "nombre_campo":'nombre-campo-texto',
+                    "nombre_campo_tabla":'nombre-campo-tabla-texto',
+                    "placeholder":'placeholder-texto',
+                    "clase":'clase-css-texto',
+                    "validacion":'validar-texto'}
+            },
+            "numerico":{
+                "titulo":"modalNumerico",
+                "campos":{
+                    "titulo":'titulo-campo-numerico',
+                    "nombre_campo":'nombre-campo-numerico',
+                    "nombre_campo_tabla":'nombre-campo-tabla-numerico',
+                    "placeholder":'placeholder-numerico',
+                    "clase":'clase-css-numerico',
+                    "validacion":'validar-numerico',
+                    "menor_rango":"menor-rango-numerico",
+                    "mayor_rango":"mayor-rango-numerico"
+                }
+            },
+            "fecha":{
+                "titulo":"modalFecha",
+                "campos":{
+                    "titulo":'titulo-campo-calendario',
+                    "nombre_campo":'nombre-campo-calendario',
+                    "nombre_campo_tabla":'nombre-campo-tabla-calendario',
+                    "placeholder":'placeholder-calendario',
+                    "clase":'clase-css-calendario',
+                    "validacion":'validar-calendario',
+                    "menor_rango":"menor-rango-calendario",
+                    "mayor_rango":"mayor-rango-calendario"
+                }
+            },
+            "lista":{
+                "titulo":"modalLista",
+                "campos":{"titulo":'titulo-campo-lista',"nombre_campo":'nombre-campo-lista',"nombre_campo_tabla":'nombre-campo-tabla-lista',"placeholder":'placeholder-lista',"clase":'clase-css-lista',"validacion":'validar-lista',"tipo_lista_valores":"tipo-lista","lista_valores":"lista-valores-lista"}
+            },
+            "buscador":{
+                "titulo":"modalBuscador",
+                "campos":{"titulo":'titulo-campo-buscador',"nombre_campo":'nombre-campo-buscador',"nombre_campo_tabla":'nombre-campo-tabla-buscador',"placeholder":'placeholder-buscador',"clase":'clase-css-buscador',"validacion":'validar-buscador',"tipo_lista_valores":"tipo-lista","lista_valores":"lista-valores-lista"}
+            },
+        }
+        let form;
+        main();
+        async function main(){
+            form = new FormularioBootstrap(document.getElementById('area-trabajo'),"http://localhost/generador-formularios/lector_formulario.php");
+            await form.obtenerFormulario();
+            form.generarFormulario()
+
+
+        }
+        function abrir(tipo){
+            $("#"+LIST_MODAL[tipo].titulo).modal('toggle')
+        }
+
+        function guardarCampo(tipo){
+            console.log(tipo)
+            let temp = {};
+            for (var indice in LIST_MODAL[tipo].campos) {
+                    console.log(LIST_MODAL[tipo].campos[indice])
+                    temp[indice] = document.getElementById(LIST_MODAL[tipo].campos[indice]).value;
+                    document.getElementById(LIST_MODAL[tipo].campos[indice]).value=null;
+            }
+            temp['tipo_campo']=tipo;
+            form.datos.campos.push(temp);
+            form.destruirFormulario()
+            form.generarFormulario()
+            abrir(tipo)
+
+        }
+        /*
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        */
+
+
+
+    </script>
+</html>

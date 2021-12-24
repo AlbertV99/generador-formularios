@@ -36,4 +36,4 @@ CREATE TABLE campos_formulario(
 ) ENGINE=INNODB;
 
 --INSERCIONES DE LOS CAMPOS UTILIZABLES EN EL FORMULARIO
-INSERT INTO  tipo_campo (tipo) VALUES ("texto"),("numerico"),("lista"),("buscador"),("fecha")
+INSERT INTO  tipo_campo (tipo) VALUES ("texto"),("numerico"),("lista"),("buscador"),("fecha");

@@ -1,6 +1,7 @@
 
 class Formulario{
-    constructor(zonaFormulario){
+    constructor(zonaFormulario,direccionFetch){
+        this.direccionFetch = direccionFetch
         this.zonaFormulario=zonaFormulario;
         this.titulo;
         this.direccionGuardar;
@@ -9,23 +10,27 @@ class Formulario{
         this.botonGuardar;
         this.botonRestablecer;
         this.botonVolver;
+        this.datos={};
 
     }
-    obtenerFormulario(){
-        fetch("lector_formulario.php")
-        .then(crudo=> crudo.json() )
-        .then(data=> this.generarFormulario(data))
-        .catch(error=>this.mensaje(error))
+    async obtenerFormulario(){
+        // fetch("lector_formulario.php")
+        // .then(crudo=> crudo.json() )
+        // .then(data=> this.datos=data)
+        // .catch(error=>this.mensaje(error))
+        let temp = await fetch(this.direccionFetch)
+        this.datos = await temp.json()
+
 
     }
-    generarFormulario(datos){
-        console.log(datos)
-        this.titulo = datos.titulo;
-        this.direccionGuardar = datos.direccion_guardar;
-        this.tablaGuardar = datos.tabla_guardar;
-        this.campos = this.crearCampos(datos.campos);
-        this.botonGuardar=new Boton("guardar","Guardar",()=>this.enviarForm(this));
-        this.botonRestablecer=new Boton("restablecer","Restablecer",this.restablecerForm);
+    generarFormulario(){
+        console.log(this.datos)
+        this.titulo = this.datos.titulo;
+        this.direccionGuardar = this.datos.direccion_guardar;
+        this.tablaGuardar = this.datos.tabla_guardar;
+        this.campos = this.crearCampos(this.datos.campos);
+        this.botonGuardar=new Boton("guardar","Guardar","",()=>this.enviarForm(this));
+        this.botonRestablecer=new Boton("restablecer","Restablecer","",this.restablecerForm);
         var temp =  document.createElement("H2")
         temp.innerHTML = this.titulo;
         this.zonaFormulario.appendChild(temp);
@@ -109,6 +114,9 @@ class Formulario{
     restablecerForm(){
         console.log("restablecerFormulario");
 
+    }
+    destruirFormulario(){
+        this.zonaFormulario.innerHTML=""
     }
 
 }
@@ -298,26 +306,55 @@ class CampoBuscador extends Campo{
 }
 
 class Boton {
-    constructor(id,titulo,accionClick){
+    constructor(id,titulo,clase,accionClick){
         this.id = id;
         this.titulo = titulo;
+        this.clase = clase
         this.accionClick = accionClick;
         this.puntero = null;
 
     }
     generar(){
         console.log("Construyendo boton");
-        this.puntero = document.createElement("input");
-        this.puntero.type="button";
-        this.puntero.value = this.titulo;
+        this.puntero = document.createElement("button");
+        this.puntero.className = this.clase;
+        this.puntero.innerHTML = this.titulo;
         this.puntero.addEventListener("click",this.accionClick);
 
     }
 }
 
+class FormularioBootstrap extends Formulario{
+    constructor(zonaFormulario,direccionFetch){
+        super(zonaFormulario,direccionFetch);
+    }
+    generarFormulario(){
+        console.log(this.datos)
+        this.titulo = this.datos.titulo;
+        this.direccionGuardar = this.datos.direccion_guardar;
+        this.tablaGuardar = this.datos.tabla_guardar;
+        this.campos = this.crearCampos(this.datos.campos);
+        this.botonGuardar=new Boton("guardar","Guardar","btn btn-primary",()=>this.enviarForm(this));
+        this.botonRestablecer=new Boton("restablecer","Restablecer","btn btn-secondary",this.restablecerForm);
+        var temp =  document.createElement("H2")
+        temp.innerHTML = this.titulo;
+        this.zonaFormulario.appendChild(temp);
+        this.campos.forEach((item, i) => {
+            let contenedor = document.createElement("div");
+            contenedor.class = "form-group"
+            var temp =document.createElement("label");
+            temp.innerHTML = item.titulo ;
+            temp.className = "col-form-label";
+            contenedor.appendChild(temp)
+            contenedor.appendChild(item.puntero);
+            if(item.constructor.name=='CampoBuscador')
+                contenedor.appendChild(item.datalist)
+            this.zonaFormulario.appendChild(contenedor)
+        });
+        this.botonGuardar.generar();
+        this.botonRestablecer.generar();
+        this.zonaFormulario.appendChild(this.botonGuardar.puntero);
+        this.zonaFormulario.appendChild(this.botonRestablecer.puntero);
+    }
 
-//
-// class CampoFecha(){
-//
-//
-// }
+}
