@@ -36,84 +36,67 @@
         </header>
         <div class="container-fluid" style='    display: flex;   flex-wrap: nowrap;   height: 100vh;   padding-left: 0px;'>
             <!-- <div class="row">
-                <div class="col-2 bg-dark" id="herramientas">
-                    <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
-                        <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Campo Texto</button>
-                        <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Campo Numerico</button>
-                        <button type="button" class="btn btn-secondary" onclick="abrir('fecha')">Campo Fecha</button>
-                        <button type="button" class="btn btn-secondary" onclick="abrir('lista')">Campo Lista</button>
-                        <button type="button" class="btn btn-secondary" onclick="abrir('buscador')">Campo Buscador</button>
-                    </div>
-                    <hr class="dropdown-divider">
-                    <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
-                        <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Guardar</button>
-                        <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Volver</button>
-                    </div>
+            <div class="col-2 bg-dark" id="herramientas">
+            <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
+            <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Campo Texto</button>
+            <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Campo Numerico</button>
+            <button type="button" class="btn btn-secondary" onclick="abrir('fecha')">Campo Fecha</button>
+            <button type="button" class="btn btn-secondary" onclick="abrir('lista')">Campo Lista</button>
+            <button type="button" class="btn btn-secondary" onclick="abrir('buscador')">Campo Buscador</button>
                 </div>
-                <div class="col" id="area-trabajo">
-                </div>
+                <hr class="dropdown-divider">
+                <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
+                <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Guardar</button>
+                <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Volver</button>
+            </div>
+        </div>
+
 
         </div> -->
 
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-          <!-- <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">Sidebar</span>
-          </a>
-          <hr> -->
-          <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-              <a href="#" onclick="abrir('texto')" class="nav-link bg-primary text-white" aria-current="page">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" onclick="abrir('texto')" class="nav-link bg-primary text-white" aria-current="page">
 
-                Campo Texto
-              </a>
-            </li>
-            <hr>
-            <li>
-              <a href="#" onclick="abrir('texto')" class="nav-link bg-primary text-white">
+                            Campo Texto
+                        </a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#" onclick="abrir('numerico')" class="nav-link bg-primary text-white">
 
-                Campo Númerico
-              </a>
-            </li>
-            <hr>
-            <li>
-              <a href="#" onclick="abrir('texto')" class="nav-link bg-primary text-white">
+                            Campo Númerico
+                        </a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#" onclick="abrir('fecha')" class="nav-link bg-primary text-white">
 
-                Campo Fecha
-              </a>
-            </li>
-            <hr>
-            <li>
-              <a href="#" onclick="abrir('texto')" class="nav-link bg-primary text-white">
+                            Campo Fecha
+                        </a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#" onclick="abrir('lista')" class="nav-link bg-primary text-white">
 
-                Campo Lista
-              </a>
-            </li>
-            <hr>
-            <li>
-              <a href="#" onclick="abrir('texto')" class="nav-link bg-primary text-white">
+                            Campo Lista
+                        </a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#" onclick="abrir('buscador')" class="nav-link bg-primary text-white">
 
-                Campo Buscador
-              </a>
-            </li>
-            <hr>
-          </ul>
-          <hr>
-          <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-              <strong>mdo</strong>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-          </div>
+                            Campo Buscador
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col  " id="area-trabajo">
         </div>
-      </div>
+        </div>
+
         <form id='descargar-php' action="descargar_form.php" method="post" target="_blank">
             <textarea name="datos" id="datos" rows="8" cols="80" style="display:none"></textarea>
         </form>
@@ -175,7 +158,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="titulo-campo-texto" class="col-form-label">Titulo de Campo:</label>
+                                <label for="titulo-campo-texto" class="col-form-label">Etiqueta de Campo:</label>
                                 <input type="text" class="form-control" id="titulo-campo-texto">
                             </div>
                             <div class="form-group">
@@ -221,7 +204,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="titulo-campo-numerico" class="col-form-label">Titulo de Campo:</label>
+                                <label for="titulo-campo-numerico" class="col-form-label">Etiqueta de Campo:</label>
                                 <input type="text" class="form-control" id="titulo-campo-numerico">
                             </div>
                             <div class="form-group">
@@ -275,7 +258,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="titulo-campo-calendario" class="col-form-label">Titulo de Campo:</label>
+                                <label for="titulo-campo-calendario" class="col-form-label">Etiqueta de Campo:</label>
                                 <input type="text" class="form-control" id="titulo-campo-calendario">
                             </div>
                             <div class="form-group">
@@ -329,7 +312,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="titulo-campo-lista" class="col-form-label">Titulo de Campo:</label>
+                                <label for="titulo-campo-lista" class="col-form-label">Etiqueta de Campo:</label>
                                 <input type="text" class="form-control" id="titulo-campo-lista">
                             </div>
                             <div class="form-group">
@@ -384,7 +367,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="titulo-campo-buscador" class="col-form-label">Titulo de Campo:</label>
+                                <label for="titulo-campo-buscador" class="col-form-label">Etiqueta de Campo:</label>
                                 <input type="text" class="form-control" id="titulo-campo-buscador">
                             </div>
                             <div class="form-group">
