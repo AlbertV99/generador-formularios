@@ -21,7 +21,7 @@ CREATE TABLE campos_formulario(
     placeholder VARCHAR(60),
     titulo VARCHAR(20) NOT NULL,
     clase_css VARCHAR(100) NOT NULL,
-    tipo_lista_valores VARCHAR(10) COMMENT 'Validacion para los campos de tipo lista desplegable, dependiendo de este valor se ejecutara el select cargado o se utilizaran los valores en formato JSON [{"id":"valor"},{"id":"valor"}]' CHECK (tipo_lista_valores IS NULL OR tipo_lista_valores in ('FIJO','DINAMICO')),
+    tipo_lista_valores VARCHAR(10) COMMENT 'Validacion para los campos de tipo lista desplegable, dependiendo de este valor se ejecutara el select cargado o se utilizaran los valores en formato JSON [{"id":"valor"},{"id":"valor"}]' CHECK ( tipo_lista_valores in ('','FIJO','DINAMICO')),
     lista_valores VARCHAR(100) COMMENT 'Valores a mostrar en lista desplegable, se puede almacenar un select o una lista en formato JSON' ,
     validacion_vacio VARCHAR(1) DEFAULT 'N' COMMENT 'Para validar si el campo puede venir con o sin valor , (S/N)' CHECK (validacion_vacio IN ('S','N')),
     menor_valor VARCHAR(15) COMMENT 'Minimo valor posible para los campos de tipo numerico / fecha [formato de fecha = aaaa-mm-dd]' ,

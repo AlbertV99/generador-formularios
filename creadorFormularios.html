@@ -18,11 +18,24 @@
         <header>
             <nav class="navbar navbar-dark bg-dark">
                 <h3 class="navbar-brand" >Creador de Formularios</h3>
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                        <li><a class="dropdown-item " onclick="abrir('parametros')" >Parametros</a></li>
+                        <li><a class="dropdown-item" onclick="guardar()">Guardar</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" onclick="descargar()">Descargar</a></li>
+                    </ul>
+                </div>
+
             </nav>
         </header>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2" id="herramientas">
+                <div class="col-2 bg-dark" id="herramientas">
                     <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
                         <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Campo Texto</button>
                         <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Campo Numerico</button>
@@ -30,11 +43,63 @@
                         <button type="button" class="btn btn-secondary" onclick="abrir('lista')">Campo Lista</button>
                         <button type="button" class="btn btn-secondary" onclick="abrir('buscador')">Campo Buscador</button>
                     </div>
+                    <hr class="dropdown-divider">
+                    <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Ejemplo">
+                        <button type="button" class="btn btn-secondary" onclick="abrir('texto')">Guardar</button>
+                        <button type="button" class="btn btn-secondary" onclick="abrir('numerico')">Volver</button>
+                    </div>
                 </div>
                 <div class="col" id="area-trabajo">
+            </div>
+
+        </div>
+        <form id='descargar-php' action="descargar_form.php" method="post" target="_blank">
+            <textarea name="datos" id="datos" rows="8" cols="80" style="display:none"></textarea>
+        </form>
+        <!-- MODAL PARA CONFIGURAR FORMULARIO -->
+        <div class="modal modal-texto" id="modalParametros" tabindex="-1" role="dialog" aria-labelledby="modalParametros" aria-hidden="false" aria-modal="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Parametros Formulario</h5>
+                        <button type="button" class="close" onclick="cerrarParametros()"  onclick="abrir('texto')">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titulo-formulario" class="col-form-label">Titulo de Formulario:</label>
+                                <input type="text" class="form-control" id="titulo-formulario">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre-tabla" class="col-form-label">Tabla a guardar:</label>
+                                <input type="text" class="form-control" id="nombre-tabla">
+                            </div>
+                            <div class="form-group">
+                                <label for="direccion-guardar" class="col-form-label">Direccion a guardar form:</label>
+                                <input type="text" class="form-control" id="direccion-guardar">
+                            </div>
+                            <div class="form-group">
+                                <label for="bd-guardar" class="col-form-label">Nombre de BD:</label>
+                                <input type="text" class="form-control" id="bd-guardar">
+                            </div>
+                            <div class="form-group">
+                                <label for="placeholder-texto" class="col-form-label">Estilo:</label>
+                                <select class="form-select" id="estilo-form">
+                                    <option value="vanilla">vanilla</option>
+                                    <option value="bootstrap1">bootstrap1</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="cerrarParametros()">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarParametros()">Guardar</button>
+                    </div>
 
                 </div>
-            </div>
+          </div>
         </div>
         <!-- MODAL PARA CREAR CAMPOS DE TEXTO -->
         <div class="modal fade modal-texto" id="modalTexto" tabindex="-1" role="dialog" aria-labelledby="modalTexto" aria-hidden="false">
@@ -69,7 +134,7 @@
                                 <input type="text" class="form-control" id="clase-css-texto">
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" class="custom-control-input" id="validar-texto">
+                                <input type="checkbox" class="custom-control-input" id="validar-texto" value='S'>
                                 <label class="custom-control-label" for="customCheck1">No permitir vacio</label>
                             </div>
                         </form>
@@ -306,6 +371,14 @@
     <script src="clases.js" charset="utf-8"></script>
     <script type="text/javascript">
         const LIST_MODAL = {
+            "parametros":{
+                "titulo":"modalParametros",
+                "campos":{
+                    "titulo":'titulo-formulario',
+                    "tabla_guardar":'nombre-tabla',
+                    "direccion_guardar":'direccion-guardar',
+                    }
+            },
             "texto":{
                 "titulo":"modalTexto",
                 "campos":{
@@ -344,19 +417,50 @@
             },
             "lista":{
                 "titulo":"modalLista",
-                "campos":{"titulo":'titulo-campo-lista',"nombre_campo":'nombre-campo-lista',"nombre_campo_tabla":'nombre-campo-tabla-lista',"placeholder":'placeholder-lista',"clase":'clase-css-lista',"validacion":'validar-lista',"tipo_lista_valores":"tipo-lista","lista_valores":"lista-valores-lista"}
+                "campos":{
+                    "titulo":'titulo-campo-lista',
+                    "nombre_campo":'nombre-campo-lista',
+                    "nombre_campo_tabla":'nombre-campo-tabla-lista',
+                    "placeholder":'placeholder-lista',
+                    "clase":'clase-css-lista',
+                    "validacion":'validar-lista',
+                    "tipo_lista_valores":"tipo-lista",
+                    "lista_valores":"lista-valores-lista"}
             },
             "buscador":{
                 "titulo":"modalBuscador",
-                "campos":{"titulo":'titulo-campo-buscador',"nombre_campo":'nombre-campo-buscador',"nombre_campo_tabla":'nombre-campo-tabla-buscador',"placeholder":'placeholder-buscador',"clase":'clase-css-buscador',"validacion":'validar-buscador',"tipo_lista_valores":"tipo-lista","lista_valores":"lista-valores-lista"}
+                "campos":{
+                    "titulo":'titulo-campo-buscador',
+                    "nombre_campo":'nombre-campo-buscador',
+                    "nombre_campo_tabla":'nombre-campo-tabla-buscador',
+                    "placeholder":'placeholder-buscador',
+                    "clase":'clase-css-buscador',
+                    "validacion":'validar-buscador',
+                    "tipo_lista_valores":"tipo-lista",
+                    "lista_valores":"lista-valores-lista"}
             },
         }
+        const TIPOS_FORM = {
+            "vanilla":FormularioDesarrollo,
+            "bootstrap1":FormularioBootstrapDesarrollo
+        }
+        var bdUtilizar=""
+        let tipoFormSeleccionado="bootstrap1";
         let form;
-        main();
-        async function main(){
-            form = new FormularioBootstrap(document.getElementById('area-trabajo'),"http://localhost/generador-formularios/lector_formulario.php");
-            await form.obtenerFormulario();
-            form.generarFormulario()
+        window.onload=()=>construirFormInicial();
+        // construirFormInicial();
+
+
+        function construirFormInicial(){
+            form = new TIPOS_FORM[tipoFormSeleccionado](document.getElementById('area-trabajo'),"http://localhost/generador-formularios/lector_formulario.php");
+            try {
+                form.generarFormulario()
+                form.enviarForm=()=>{}
+
+            } catch (e) {
+                console.error(e);
+            }
+            abrir("parametros");
 
 
         }
@@ -369,7 +473,12 @@
             let temp = {};
             for (var indice in LIST_MODAL[tipo].campos) {
                     console.log(LIST_MODAL[tipo].campos[indice])
-                    temp[indice] = document.getElementById(LIST_MODAL[tipo].campos[indice]).value;
+                    if(document.getElementById(LIST_MODAL[tipo].campos[indice]).type.toUpperCase() =="CHECKBOX" ){
+                        temp[indice] = (document.getElementById(LIST_MODAL[tipo].campos[indice]).checked)?'S':'N'
+                    }else{
+                        temp[indice] = document.getElementById(LIST_MODAL[tipo].campos[indice]).value;
+
+                    }
                     document.getElementById(LIST_MODAL[tipo].campos[indice]).value=null;
             }
             temp['tipo_campo']=tipo;
@@ -379,18 +488,46 @@
             abrir(tipo)
 
         }
-        /*
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        */
+        function guardarParametros(){
+            let temp={} ,tempCampos=[];
+            for (var indice in LIST_MODAL["parametros"].campos) {
+                    console.log(LIST_MODAL["parametros"].campos[indice])
+                    temp[indice] = document.getElementById(LIST_MODAL["parametros"].campos[indice]).value;
+                    document.getElementById(LIST_MODAL["parametros"].campos[indice]).value=null;
+            }
+            tempCampos = (typeof form.datos.campos != "undefined")? form.datos.campos : [];
+            temp['campos']=tempCampos;
+            tipoFormSeleccionado =document.getElementById("estilo-form").value;
+            console.log(temp);
+            form = new TIPOS_FORM[tipoFormSeleccionado](document.getElementById('area-trabajo'),"http://localhost/generador-formularios/lector_formulario.php");
+            bdUtilizar = document.getElementById("bd-guardar").value
+            form.datos=temp;
+            form.destruirFormulario();
+            form.generarFormulario()
+            cerrarParametros("parametros")
+
+        }
+        function cerrarParametros(){
+            if(Object.keys(form.datos).length != 0){
+                console.log("Testing datos 0")
+                abrir('parametros')
+            }
+        }
+        function descargar(){
+            let temp=document.getElementById("area-trabajo").innerHTML
+            document.getElementById("datos").innerHTML=temp;
+            document.getElementById("descargar-php").submit()
+        }
+        function guardar(){
+            try {
+                form.guardar(bdUtilizar);
+            } catch (e) {
+                alert(e.msg)
+            } finally {
+
+            }
+        }
+
 
 
 

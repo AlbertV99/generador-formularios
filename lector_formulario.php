@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin");
+header("Access-Control-Allow-Origin:*");
 $formulario_id = '1';
 
 $formulario = obtener_formulario($formulario_id);
