@@ -241,7 +241,7 @@ class FormularioDesarrollo extends Formulario{
 
 }
 
-class FormularioBootstrapDesarrollo extends FormularioBootstrap{
+class FormularioBootstrap1Desarrollo extends FormularioBootstrap{
     constructor(zonaFormulario,direccionFetch){
         super(zonaFormulario,direccionFetch);
         this.direccionGuardarForm = "guardar_form.php"
@@ -263,6 +263,11 @@ class FormularioBootstrapDesarrollo extends FormularioBootstrap{
     }
 
     crearContenedorCampo(datos,pos){
+        /*clase css especifica para este modelo*/
+        datos.puntero.className =" form-control "+ datos.puntero.className
+        let temEtiqueta = this.crearTituloCampo(datos)
+        temEtiqueta.className =+" form-label"
+
         let contenedor = document.createElement("div");
         contenedor.class = "form-group"
         contenedor.appendChild(this.crearTituloCampo(datos))
@@ -316,6 +321,261 @@ class FormularioBootstrapDesarrollo extends FormularioBootstrap{
     }
 }
 
+class FormularioBootstrap2Desarrollo extends FormularioBootstrap{
+    constructor(zonaFormulario,direccionFetch){
+        super(zonaFormulario,direccionFetch);
+        this.direccionGuardarForm = "guardar_form.php"
+    }
+    generarFormulario(){
+        /*clase css especifica para este modelo*/
+        console.log(this.datos)
+        this.campos = this.crearCampos(this.datos.campos);
+        this.configuracionesBasicas()
+        this.crearTitulo()
+        this.botonGuardar=new Boton("guardar","Guardar","",()=>this.enviarForm(this));
+        this.botonRestablecer=new Boton("restablecer","Restablecer","",this.restablecerForm);
+        this.campos.forEach((item, i) => {
+            this.crearContenedorCampo(item,i)
+        });
+        this.botonGuardar.generar();
+        this.botonRestablecer.generar();
+        this.zonaFormulario.appendChild(this.botonGuardar.puntero);
+        this.zonaFormulario.appendChild(this.botonRestablecer.puntero);
+    }
+
+    crearContenedorCampo(datos,pos){
+        /*clase css especifica para este modelo*/
+        datos.puntero.className =" form-control "+ datos.puntero.className
+        let temEtiqueta = this.crearTituloCampo(datos)
+        temEtiqueta.className =+" form-label"
+
+        let tempEliminar = new Boton("eliminar","X","",()=>this.eliminarCampo(pos));
+        tempEliminar.generar()
+        let contenedor = document.createElement("div");
+        contenedor.className = "row"
+        let contenedorTitulo = document.createElement("div");
+        contenedorTitulo.className = "col-sm-2"
+        let contenedorCampo = document.createElement("div");
+        contenedorCampo.className = "col-sm-4"
+        contenedorTitulo.appendChild(this.crearTituloCampo(datos))
+        contenedorCampo.appendChild(datos.puntero);
+        contenedorCampo.appendChild(tempEliminar.puntero)
+        if(datos.constructor.name=='CampoBuscador')
+            contenedorCampo.appendChild(datos.datalist)
+        contenedor.appendChild(contenedorTitulo)
+        contenedor.appendChild(contenedorCampo)
+
+        this.zonaFormulario.appendChild(contenedor)
+
+
+    }
+    guardar(bd){
+        try {
+            fetch(this.direccionGuardarForm, {
+                method: 'POST',
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({"datos":form.datos,"bd":bd}) // body data type must match "Content-Type" header
+            }
+            ).then(crudo=> crudo.json() )
+            .then(data=> {
+                if(data.msg.includes("Error")){
+                    throw data
+                }else{
+                    console.log(data)
+                }
+            }).catch ((e)=>{
+                throw e
+            })
+        } catch (e) {
+            throw e
+        } finally {
+
+        }
+       // .catch(error=> {
+       //     throw error
+       // });
+    }
+
+    enviarForm(t){
+        alert("Prueba de guardado de datos");
+    }
+
+    eliminarCampo(posicion){
+        this.datos.campos.splice(posicion,1)
+        this.destruirFormulario()
+        this.generarFormulario()
+    }
+}
+
+
+class FormularioBootstrap3Desarrollo extends FormularioBootstrap{
+    constructor(zonaFormulario,direccionFetch){
+        super(zonaFormulario,direccionFetch);
+        this.direccionGuardarForm = "guardar_form.php"
+    }
+    generarFormulario(){
+        console.log(this.datos)
+        this.campos = this.crearCampos(this.datos.campos);
+        this.configuracionesBasicas()
+        this.crearTitulo()
+        this.botonGuardar=new Boton("guardar","Guardar","",()=>this.enviarForm(this));
+        this.botonRestablecer=new Boton("restablecer","Restablecer","",this.restablecerForm);
+        this.campos.forEach((item, i) => {
+            this.crearContenedorCampo(item,i)
+        });
+        this.botonGuardar.generar();
+        this.botonRestablecer.generar();
+        this.zonaFormulario.appendChild(this.botonGuardar.puntero);
+        this.zonaFormulario.appendChild(this.botonRestablecer.puntero);
+    }
+
+    crearContenedorCampo(datos,pos){
+        /*clase css especifica para este modelo*/
+        datos.puntero.className =" form-control "+ datos.puntero.className
+        let temEtiqueta = this.crearTituloCampo(datos)
+        temEtiqueta.className =+" form-label"
+        let tempEliminar = new Boton("eliminar","X","",()=>this.eliminarCampo(pos));
+        tempEliminar.generar()
+        let contenedor = document.createElement("div");
+        contenedor.className = "row"
+        let contenedorTitulo = document.createElement("div");
+        contenedorTitulo.className = "col-sm-4"
+        contenedorTitulo.appendChild(this.crearTituloCampo(datos))
+        contenedorTitulo.appendChild(datos.puntero);
+        contenedorTitulo.appendChild(tempEliminar.puntero)
+        if(datos.constructor.name=='CampoBuscador')
+            contenedorTitulo.appendChild(datos.datalist)
+        contenedor.appendChild(contenedorTitulo)
+
+        this.zonaFormulario.appendChild(contenedor)
+
+
+    }
+    guardar(bd){
+        try {
+            fetch(this.direccionGuardarForm, {
+                method: 'POST',
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({"datos":form.datos,"bd":bd}) // body data type must match "Content-Type" header
+            }
+            ).then(crudo=> crudo.json() )
+            .then(data=> {
+                if(data.msg.includes("Error")){
+                    throw data
+                }else{
+                    console.log(data)
+                }
+            }).catch ((e)=>{
+                throw e
+            })
+        } catch (e) {
+            throw e
+        } finally {
+
+        }
+       // .catch(error=> {
+       //     throw error
+       // });
+    }
+
+    enviarForm(t){
+        alert("Prueba de guardado de datos");
+    }
+
+    eliminarCampo(posicion){
+        this.datos.campos.splice(posicion,1)
+        this.destruirFormulario()
+        this.generarFormulario()
+    }
+}
+
+
+class FormularioBootstrap4Desarrollo extends FormularioBootstrap{
+    constructor(zonaFormulario,direccionFetch){
+        super(zonaFormulario,direccionFetch);
+        this.direccionGuardarForm = "guardar_form.php"
+    }
+    generarFormulario(){
+        console.log(this.datos)
+        this.campos = this.crearCampos(this.datos.campos);
+        this.configuracionesBasicas()
+        this.crearTitulo()
+        this.botonGuardar=new Boton("guardar","Guardar","",()=>this.enviarForm(this));
+        this.botonRestablecer=new Boton("restablecer","Restablecer","",this.restablecerForm);
+        this.campos.forEach((item, i) => {
+            this.crearContenedorCampo(item,i)
+        });
+        this.botonGuardar.generar();
+        this.botonRestablecer.generar();
+        this.zonaFormulario.appendChild(this.botonGuardar.puntero);
+        this.zonaFormulario.appendChild(this.botonRestablecer.puntero);
+    }
+
+    crearContenedorCampo(datos,pos){
+        /*clase css especifica para este modelo*/
+        datos.puntero.className =" form-control "+ datos.puntero.className
+        let temEtiqueta = this.crearTituloCampo(datos)
+        temEtiqueta.className =+" form-label"
+        let tempEliminar = new Boton("eliminar","X","",()=>this.eliminarCampo(pos));
+        tempEliminar.generar()
+        let contenedor = document.createElement("div");
+        contenedor.className = "row"
+        let contenedorInterno1 = document.createElement("div");
+        contenedorInterno1.className = "col-sm-4"
+        let contenedorFlotante = document.createElement("div");
+        contenedorFlotante.className = "form-floating"
+        contenedorFlotante.appendChild(datos.puntero);
+        contenedorFlotante.appendChild(this.crearTituloCampo(datos))
+        contenedorFlotante.appendChild(tempEliminar.puntero)
+        if(datos.constructor.name=='CampoBuscador')
+            contenedorFlotante.appendChild(datos.datalist)
+        contenedorInterno1.appendChild(contenedorFlotante)
+        contenedor.appendChild(contenedorFlotante)
+
+        this.zonaFormulario.appendChild(contenedor)
+
+
+    }
+    guardar(bd){
+        try {
+            fetch(this.direccionGuardarForm, {
+                method: 'POST',
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({"datos":form.datos,"bd":bd}) // body data type must match "Content-Type" header
+            }
+            ).then(crudo=> crudo.json() )
+            .then(data=> {
+                if(data.msg.includes("Error")){
+                    throw data
+                }else{
+                    console.log(data)
+                }
+            }).catch ((e)=>{
+                throw e
+            })
+        } catch (e) {
+            throw e
+        } finally {
+
+        }
+       // .catch(error=> {
+       //     throw error
+       // });
+    }
+
+    enviarForm(t){
+        alert("Prueba de guardado de datos");
+    }
+
+    eliminarCampo(posicion){
+        this.datos.campos.splice(posicion,1)
+        this.destruirFormulario()
+        this.generarFormulario()
+    }
+}
 //TIPOS DE CAMPOS
 
 class Campo{
